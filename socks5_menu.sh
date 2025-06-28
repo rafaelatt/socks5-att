@@ -63,6 +63,19 @@ show_log() {
     tail -n 30 $LOG_FILE
 }
 
+list_users() {
+    echo "[+] Danh sách user hệ thống (có thể đăng nhập SOCKS5):"
+    users=$(awk -F: '($7 == "/usr/sbin/nologin" || $7 == "/bin/false") {print $1}' /etc/passwd)
+    
+    if [ -z "$users" ]; then
+        echo "  (Chưa có user nào)"
+    else
+        echo "$users"
+        echo ""
+        echo "Tổng số user: $(echo "$users" | wc -l)"
+    fi
+}
+
 main_menu() {
     while true; do
         echo ""
@@ -71,6 +84,7 @@ main_menu() {
         echo "2. Thêm user"
         echo "3. Xoá user"
         echo "4. Xem log kết nối"
+        echo "5. Hiển thị danh sách user"
         echo "0. Thoát"
         echo "====================================="
         read -p "Chọn tuỳ chọn: " choice
@@ -79,6 +93,7 @@ main_menu() {
             2) add_user ;;
             3) delete_user ;;
             4) show_log ;;
+            5) list_users ;;
             0) exit 0 ;;
             *) echo "[-] Lựa chọn không hợp lệ." ;;
         esac
