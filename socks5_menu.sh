@@ -1,8 +1,4 @@
-# Save the SOCKS5 menu script content to a file for user download
-
-script_path = "/mnt/data/socks5_menu.sh"
-
-script_content = """#!/bin/bash
+#!/bin/bash
 
 DANTE_CONF="/etc/danted.conf"
 LOG_FILE="/var/log/danted.log"
@@ -90,9 +86,3 @@ main_menu() {
 }
 
 main_menu
-"""
-
-with open(script_path, "w") as f:
-    f.write(script_content)
-
-script_path
